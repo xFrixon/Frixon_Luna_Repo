@@ -1,0 +1,16 @@
+from qiskit import QuantumCircuit, Aer, transpile, assemble
+
+# Crear un circuito cuántico simple
+qc = QuantumCircuit(2, 2)
+qc.h(0)
+qc.cx(0, 1)
+
+# Simular el circuito en un simulador cuántico
+simulator = Aer.get_backend('qasm_simulator')
+compiled_circuit = transpile(qc, simulator)
+qobj = assemble(compiled_circuit)
+result = simulator.run(qobj).result()
+
+# Imprimir el resultado de la simulación
+counts = result.get_counts(qc)
+print("Resultado de la simulación:", counts)
